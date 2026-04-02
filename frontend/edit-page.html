@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Page - VibeKit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Page: <span id="pageTitle"></span></h2>
+    <textarea id="pageContent" rows="15" placeholder="Write your page content here..."></textarea>
+    <button id="savePageBtn">Save Page</button>
+    <button id="backToSiteBtn">Back to Site Editor</button>
+  </div>
+
+  <script>
+    // ======== Edit Page JS =========
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageId = urlParams.get('pageId');
+
+    const pageTitle = document.getElementById('pageTitle');
+    const pageContent = document.getElementById('pageContent');
+    const savePageBtn = document.getElementById('savePageBtn');
+    const backToSiteBtn = document.getElementById('backToSiteBtn');
+
+    pageTitle.textContent = pageId;
+
+    // Load saved pages data
+    let pagesData = JSON.parse(localStorage.getItem('pagesData') || '{}');
+    pageContent.value = pagesData[pageId] || '';
+
+    // Save page content
+    savePageBtn.onclick = () => {
+      pagesData[pageId] = pageContent.value;
+      localStorage.setItem('pagesData', JSON.stringify(pagesData));
+      alert('Page saved!');
+    };
+
+    // Back to site editor
+    backToSiteBtn.onclick = () => {
+      window.location.href = 'edit-site.html';
+    };
+  </script>
+</body>
+</html>

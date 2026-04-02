@@ -1,0 +1,343 @@
+/* ---------------- Global Styles ---------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ---------------- Container ---------------- */
+.container {
+    background-color: #ffffff;
+    padding: 40px 35px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+}
+
+/* ---------------- Headings ---------------- */
+h2, h1#siteTitle {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 25px;
+}
+
+/* ---------------- Inputs & Textareas ---------------- */
+input, textarea {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 12px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    background-color: #fdfdfd;
+    resize: vertical;
+    transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 5px rgba(79,70,229,0.2);
+    background-color: #fff;
+}
+
+/* ---------------- Buttons ---------------- */
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: #4f46e5;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+/* ---------------- Paragraphs & Links ---------------- */
+p {
+    margin-top: 16px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- Pages Section ---------------- */
+.pages-section {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.pages-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 15px;
+}
+
+/* Pages List */
+.pages-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pages-list li.page-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9fafb;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.pages-list li.page-item:hover {
+    background-color: #eef2ff;
+    transform: translateY(-2px);
+}
+
+.pages-list li .page-link {
+    color: #4f46e5;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.pages-list li .page-link:hover {
+    text-decoration: underline;
+}
+
+.pages-list li .btn-delete {
+    background-color: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.pages-list li .btn-delete:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Add Page Section */
+.add-page {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.add-page input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-page input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 5px rgba(79,70,229,0.3);
+}
+
+.add-page button {
+    flex-shrink: 0;
+    background-color: #4f46e5;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-page button:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+}
+
+/* ---------------- Theme Settings ---------------- */
+.theme-settings {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f3f4f6;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.theme-settings label {
+    display: block;
+    margin: 10px 0 4px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #374151;
+}
+
+.theme-inputs {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.theme-inputs input[type="color"] {
+    width: 60px;
+    height: 35px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+}
+
+/* ---------------- Footer Buttons ---------------- */
+.footer-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #e0e7ff;
+    color: #4338ca;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    width: 48%;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #6366f1;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* ---------------- Page Content ---------------- */
+.page-content {
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 25px;
+    margin-top: 25px;
+    min-height: 220px;
+    line-height: 1.7;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.page-content h1, 
+.page-content h2, 
+.page-content h3 {
+    margin: 18px 0 10px 0;
+    color: #111827;
+}
+
+.page-content p {
+    margin-bottom: 12px;
+}
+
+/* ---------------- Pages Navigation ---------------- */
+#pagesNav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 8px;
+}
+
+#pagesNav a {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #e0e7ff;
+    color: #4338ca;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+#pagesNav a.active {
+    background-color: #4f46e5;
+    color: #fff;
+}
+
+#pagesNav a:hover {
+    background-color: #6366f1;
+    color: #fff;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 600px) {
+    .container { padding: 30px 20px; width: 95%; }
+    h2 { font-size: 24px; }
+    .btn-primary, .btn-secondary { font-size: 15px; padding: 12px; }
+    .pages-list li.page-item { font-size: 15px; }
+    .add-page { flex-direction: column; }
+    .footer-btns { flex-direction: column; }
+    .footer-btns button { width: 100%; }
+}
+
+@media (max-width: 400px) {
+    h2 { font-size: 22px; }
+}

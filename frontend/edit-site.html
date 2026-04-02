@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Site - VibeKit</title>
+  <style>
+    /* ---------------- Global Styles ---------------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', Arial, sans-serif; }
+    body { background: #f5f7fa; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
+    .container { background: #ffffff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); width: 100%; max-width: 550px; transition: all 0.3s ease; }
+    h1#siteTitle, h2 { font-size: 28px; font-weight: 600; color: #1f2937; margin-bottom: 30px; text-align: center; }
+    label { font-weight: 500; margin-bottom: 6px; display: block; color: #374151; }
+    input, textarea { width: 100%; padding: 14px 16px; margin-bottom: 18px; border: 1.5px solid #d1d5db; border-radius: 12px; font-size: 16px; outline: none; background: #fefefe; transition: all 0.25s ease; }
+    input:focus, textarea:focus { border-color: #4f46e5; box-shadow: 0 4px 12px rgba(79,70,229,0.15); background: #fff; }
+    button { padding: 12px 18px; font-size: 16px; font-weight: 500; border: none; border-radius: 12px; cursor: pointer; transition: all 0.25s ease; }
+    button:hover { transform: translateY(-2px); }
+    .btn-primary { width: 100%; background: #4f46e5; color: #fff; }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-secondary { background: #e0e7ff; color: #4338ca; padding: 10px 16px; width: 100%; }
+    .btn-secondary:hover { background: #6366f1; color: #fff; }
+    .btn-delete { background: #ef4444; color: #fff; padding: 8px 14px; border-radius: 10px; }
+    .btn-delete:hover { background: #dc2626; }
+
+    /* ---------------- Pages Section ---------------- */
+    .pages-section { margin-top: 30px; }
+    .pages-section h3 { font-size: 22px; font-weight: 600; color: #1f2937; margin-bottom: 15px; }
+    .add-page { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .add-page input { border-radius: 12px; border: 1.5px solid #d1d5db; padding: 14px 16px; font-size: 16px; }
+    .add-page button { margin-top: 5px; }
+    .pages-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .pages-list li.page-item { display: flex; justify-content: space-between; align-items: center; background: #f9fafb; padding: 14px 16px; border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,0.03); font-size: 16px; transition: all 0.2s ease; }
+    .pages-list li.page-item:hover { background: #eef2ff; transform: translateY(-1px); }
+    .page-link { color: #4f46e5; font-weight: 500; cursor: pointer; }
+    .page-link:hover { text-decoration: underline; }
+
+    /* ---------------- Theme Settings ---------------- */
+    .theme-settings { margin-top: 35px; padding: 22px; background: #f3f4f6; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); }
+    .theme-inputs { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+    .theme-inputs label { margin-bottom: 4px; }
+    .color-preview { width: 35px; height: 35px; border-radius: 6px; border: 1px solid #d1d5db; display: inline-block; vertical-align: middle; margin-left: 8px; }
+    .theme-inputs input[type="color"] { width: 60px; height: 36px; border: none; border-radius: 8px; cursor: pointer; }
+
+    /* ---------------- Footer ---------------- */
+    .footer-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+
+    @media (max-width: 520px) {
+      .container { padding: 30px 20px; }
+      h2 { font-size: 24px; }
+      .pages-list li.page-item { font-size: 15px; }
+      .theme-inputs { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Your Site</h2>
+
+    <!-- Site Info Form -->
+    <form id="editSiteForm" class="site-form">
+      <label for="siteName">Site Name</label>
+      <input type="text" id="siteName" placeholder="Enter site name" required>
+      <label for="siteDesc">Description</label>
+      <textarea id="siteDesc" rows="3" placeholder="Enter site description"></textarea>
+      <button type="submit" class="btn-primary">Save Site Info</button>
+    </form>
+
+    <!-- Pages Section -->
+    <div class="pages-section">
+      <h3>Pages</h3>
+
+      <!-- Add Page Above Pages List -->
+      <div class="add-page">
+        <input type="text" id="newPageId" placeholder="Enter new page ID (e.g., about)">
+        <button id="addPageBtn" class="btn-primary">Add Page</button>
+      </div>
+
+      <ul id="pagesList" class="pages-list"></ul>
+    </div>
+
+    <!-- Theme Settings -->
+    <div class="theme-settings">
+      <h3>Theme Settings</h3>
+      <div class="theme-inputs">
+        <div>
+          <label for="bgColor">Background Color</label>
+          <input type="color" id="bgColor" value="#ffffff">
+          <span id="bgPreview" class="color-preview"></span>
+        </div>
+        <div>
+          <label for="textColor">Text Color</label>
+          <input type="color" id="textColor" value="#000000">
+          <span id="textPreview" class="color-preview"></span>
+        </div>
+      </div>
+      <button id="saveThemeBtn" class="btn-primary" style="margin-top: 15px;">Save Theme</button>
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="footer-btns">
+      <button id="previewBtn" class="btn-secondary">Preview Site</button>
+      <button id="backBtn" class="btn-secondary">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script>
+    const pagesList = document.getElementById('pagesList');
+    const addPageBtn = document.getElementById('addPageBtn');
+    const newPageInput = document.getElementById('newPageId');
+    const editSiteForm = document.getElementById('editSiteForm');
+    const backBtn = document.getElementById('backBtn');
+    const previewBtn = document.getElementById('previewBtn');
+    const bgColorInput = document.getElementById('bgColor');
+    const textColorInput = document.getElementById('textColor');
+    const saveThemeBtn = document.getElementById('saveThemeBtn');
+    const bgPreview = document.getElementById('bgPreview');
+    const textPreview = document.getElementById('textPreview');
+
+    let pages = JSON.parse(localStorage.getItem('pages') || '[]');
+
+    function renderPages() {
+      pagesList.innerHTML = '';
+      pages.forEach((page, index) => {
+        const li = document.createElement('li');
+        li.classList.add('page-item');
+
+        const pageLink = document.createElement('span');
+        pageLink.textContent = page;
+        pageLink.classList.add('page-link');
+        pageLink.onclick = () => window.location.href = `edit-page.html?pageId=${page}`;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('btn-delete');
+        deleteBtn.onclick = () => {
+          if(confirm(`Delete "${page}"?`)){
+            pages.splice(index, 1);
+            localStorage.setItem('pages', JSON.stringify(pages));
+            renderPages();
+          }
+        };
+
+        li.appendChild(pageLink);
+        li.appendChild(deleteBtn);
+        pagesList.appendChild(li);
+      });
+    }
+
+    renderPages();
+
+    addPageBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const pageId = newPageInput.value.trim();
+      if(pageId && !pages.includes(pageId)){
+        pages.push(pageId);
+        localStorage.setItem('pages', JSON.stringify(pages));
+        renderPages();
+        newPageInput.value = '';
+      }
+    });
+
+    editSiteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const siteName = document.getElementById('siteName').value.trim();
+      const siteDesc = document.getElementById('siteDesc').value.trim();
+      if(siteName){
+        localStorage.setItem('siteData', JSON.stringify({name: siteName, description: siteDesc}));
+        alert('Site info saved!');
+      }
+    });
+
+    backBtn.addEventListener('click', () => window.location.href='dashboard.html');
+    previewBtn.addEventListener('click', () => window.location.href='preview.html');
+
+    // Theme Preview
+    const savedTheme = JSON.parse(localStorage.getItem('siteTheme') || '{}');
+    if(savedTheme.bgColor) bgColorInput.value = savedTheme.bgColor;
+    if(savedTheme.textColor) textColorInput.value = savedTheme.textColor;
+    bgPreview.style.backgroundColor = bgColorInput.value;
+    textPreview.style.backgroundColor = textColorInput.value;
+
+    bgColorInput.addEventListener('input', ()=> bgPreview.style.backgroundColor = bgColorInput.value);
+    textColorInput.addEventListener('input', ()=> textPreview.style.backgroundColor = textColorInput.value);
+
+    saveThemeBtn.addEventListener('click', () => {
+      localStorage.setItem('siteTheme', JSON.stringify({ bgColor: bgColorInput.value, textColor: textColorInput.value }));
+      alert('Theme saved!');
+    });
+  </script>
+</body>
+</html>

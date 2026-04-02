@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Site - VibeKit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="siteTitle">Your Site Name</h1>
+    <p id="siteDesc">Your site description will appear here.</p>
+
+    <nav id="pagesNav"></nav>
+
+    <div id="pageDisplay" class="page-content"></div>
+
+    <button id="backBtn">Back to Site Editor</button>
+  </div>
+
+  <script>
+    // ===== Load site, pages, and theme =====
+    const siteData = JSON.parse(localStorage.getItem('siteData') || '{}');
+    const pages = JSON.parse(localStorage.getItem('pages') || '[]');
+    const pagesData = JSON.parse(localStorage.getItem('pagesData') || '{}');
+    const siteTheme = JSON.parse(localStorage.getItem('siteTheme') || {});
+
+    const siteTitle = document.getElementById('siteTitle');
+    const siteDesc = document.getElementById('siteDesc');
+    const pagesNav = document.getElementById('pagesNav');
+    const pageDisplay = document.getElementById('pageDisplay');
+    const backBtn = document.getElementById('backBtn');
+
+    // ===== Apply theme =====
+    if (siteTheme.bgColor) document.body.style.backgroundColor = siteTheme.bgColor;
+    if (siteTheme.textColor) document.body.style.color = siteTheme.textColor;
+    if (siteTheme.containerBg) document.querySelector('.container').style.backgroundColor = siteTheme.containerBg;
+    if (siteTheme.containerText) document.querySelector('.container').style.color = siteTheme.containerText;
+    if (siteTheme.buttonColor) backBtn.style.backgroundColor = siteTheme.buttonColor;
+    if (siteTheme.buttonText) backBtn.style.color = siteTheme.buttonText;
+
+    // ===== Show site info =====
+    siteTitle.textContent = siteData.name || 'Your Site Name';
+    siteDesc.textContent = siteData.description || '';
+
+    // ===== Render pages =====
+    let currentPage = pages[0] || null;
+
+    function renderPage(pageId) {
+      currentPage = pageId;
+      pageDisplay.innerHTML = pagesData[pageId] || '<i>No content yet</i>';
+
+      // Highlight active page link
+      document.querySelectorAll('#pagesNav a').forEach(a => a.classList.remove('active'));
+      const activeLink = Array.from(pagesNav.children).find(a => a.textContent === pageId);
+      if (activeLink) activeLink.classList.add('active');
+    }
+
+    // ===== Create navigation links =====
+    pagesNav.innerHTML = '';
+    pages.forEach(pageId => {
+      const link = document.createElement('a');
+      link.href = "#";
+      link.textContent = pageId;
+      link.onclick = (e) => {
+        e.preventDefault();
+        renderPage(pageId);
+      };
+      pagesNav.appendChild(link);
+    });
+
+    // Render first page by default
+    if (currentPage) renderPage(currentPage);
+
+    // ===== Back button =====
+    backBtn.onclick = () => {
+      window.location.href = 'edit-site.html';
+    };
+  </script>
+</body>
+</html>

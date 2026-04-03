@@ -1,25 +1,38 @@
 const { MongoClient } = require("mongodb");
-require("dotenv").config({ path: "../../.env" });
+require("dotenv").config();
 
 let client;
 let db;
 
 async function connectDB() {
-  if (db) return db;
+  try {
+    // ✅ Return existing connection (prevents reconnect spam)
+    if (db) return db;
 
-  console.log("Connecting to MongoDB...");
+    const uri = process.env.MONGODB_URI;
 
-  client = new MongoClient(process.env.MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000, // 🔥 prevents 30s freeze
-  });
+    if (!uri) {
+      throw new Error("❌ MONGODB_URI is not defined in environment variables");
+    }
 
-  await client.connect();
+    console.log("🔄 Connecting to MongoDB...");
 
-  console.log("Connected ✅");
+    client = new MongoClient(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
 
-  db = client.db("vibekit");
+    await client.connect();
 
-  return db;
+    db = client.db("vibekit");
+
+    console.log("✅ Connected to MongoDB");
+
+    return db;
+
+  } catch (error) {
+    console.error("❌ MongoDB Connection Error:", error.message);
+    throw error;
+  }
 }
 
 module.exports = connectDB;
